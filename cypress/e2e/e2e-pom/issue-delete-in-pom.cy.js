@@ -17,9 +17,26 @@ describe('Issue delete', () => {
 
   it('Should delete issue successfully', () => {
     //add steps to delete issue
+     cy.get('[data-testid="icon:trash"]').click();
+     cy.get('[data-testid="modal:confirm"]').should('be.visible');
+     cy.get('[data-testid="modal:confirm"]').contains('Delete issue').click();
+     cy.get('[data-testid="modal:confirm"]').should('not.exist');
+     cy.get('[data-testid="modal:issue-details"]').should('not.exist');
+     cy.get('[data-testid="board-list:backlog"]').should('not.contain', issueTitle);
   });
 
   it('Should cancel deletion process successfully', () => {
     //add steps to start deletion proces but cancel it
+    cy.get('[data-testid="icon:trash"]').click();
+     cy.get('[data-testid="modal:confirm"]').should('be.visible');
+     cy.get('[data-testid="modal:confirm"]').contains('Cancel').click();
+     cy.get('[data-testid="modal:confirm"]').should('not.exist');
+     cy.get('[data-testid="board-list:backlog"]').should('contain', 'This is an issue of type: Task');
+    
   });
 });
+  
+
+  it('Should cancel deletion process successfully', () => {
+    //add steps to start deletion proces but cancel it
+  });
